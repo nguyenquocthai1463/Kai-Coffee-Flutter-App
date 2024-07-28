@@ -10,6 +10,6 @@ class MembershipScreen extends StatefulWidget {
 class _MembershipScreenState extends State<MembershipScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Text('Membership Screen');
+    return const Placeholder();
   }
 }

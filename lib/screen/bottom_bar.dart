@@ -34,7 +34,6 @@ class _BottomBarState extends State<BottomBar> {
         backgroundColor: Colors.white,
         currentIndex: _selectedIndex,
         type: BottomNavigationBarType.fixed,
-        // fixedColor: const Color.fromRGBO(25, 110, 130, 1),
         selectedItemColor: const Color.fromRGBO(25, 110, 130, 1),
         showSelectedLabels: true,
         showUnselectedLabels: true,

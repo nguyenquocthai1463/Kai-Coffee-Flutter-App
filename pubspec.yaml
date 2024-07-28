@@ -68,10 +68,15 @@ flutter:
     - assets/images/setting.png
     - assets/images/card.png
     - assets/images/email.png
+    - assets/images/icon_list.png
+    - assets/images/icon_personal.png
+    - assets/images/icon_rewards.png
+    - assets/images/icon_setting.png
     - assets/images/reward.jpg
     - assets/images/background_36st.jpg
     - assets/images/background_288vankiep.jpg
     - assets/images/background_camon.jpg
+    - assets/images/background_danhgia.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -103,4 +108,7 @@ flutter:
     - family: Lato-Bold
       fonts:
         - asset: assets/fonts/Lato-Bold.ttf
+    - family: Lato-Regular
+      fonts:
+        - asset: assets/fonts/DFVN ED Lavonia.ttf
 
