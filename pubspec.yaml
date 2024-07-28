@@ -72,6 +72,7 @@ flutter:
     - assets/images/icon_personal.png
     - assets/images/icon_rewards.png
     - assets/images/icon_setting.png
+    - assets/images/icons8-star-30.png
     - assets/images/reward.jpg
     - assets/images/background_36st.jpg
     - assets/images/background_288vankiep.jpg
@@ -111,4 +112,8 @@ flutter:
     - family: Lato-Regular
       fonts:
         - asset: assets/fonts/DFVN ED Lavonia.ttf
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Medium.ttf
+        
 

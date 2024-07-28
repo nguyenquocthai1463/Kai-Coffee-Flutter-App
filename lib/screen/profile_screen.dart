@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kahi_coffee/screen/setting_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -119,7 +120,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               endIndent: 10,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SettingScreen()),
+                );
+              },
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 20),

@@ -22,10 +22,15 @@ class _BenefitsScreenState extends State<BenefitsScreen> {
           shadowColor: Colors.black87,
           scrolledUnderElevation: 7,
           elevation: 7,
-          title: const Text('Benefits'),
+          title: const Text('Benefits',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 22,
+              )),
           bottom: const TabBar(
             indicatorColor: Color.fromRGBO(25, 110, 130, 1),
             indicatorWeight: 3,
+            indicatorSize: TabBarIndicatorSize.tab,
             indicator: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
@@ -37,10 +42,13 @@ class _BenefitsScreenState extends State<BenefitsScreen> {
             labelPadding: EdgeInsets.all(0),
             labelColor: Colors.black,
             labelStyle: TextStyle(
+              fontFamily: 'Roboto',
               fontWeight: FontWeight.bold,
             ),
             unselectedLabelStyle: TextStyle(
               fontWeight: FontWeight.normal,
+              fontFamily: 'Roboto',
+              fontSize: 13,
             ),
             tabs: [
               Tab(

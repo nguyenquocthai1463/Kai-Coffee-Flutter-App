@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kahi_coffee/screen/benefits_screen.dart';
 import 'package:kahi_coffee/screen/profile_screen.dart';
+import 'package:kahi_coffee/screen/setting_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -121,7 +122,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                       TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SettingScreen()),
+                            );
+                          },
                           child: const Image(
                               image: AssetImage('assets/images/setting.png'),
                               width: 25,
