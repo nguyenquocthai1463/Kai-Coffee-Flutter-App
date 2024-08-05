@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:kahi_coffee/utils/config_color.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -17,17 +18,13 @@ class _SettingScreenState extends State<SettingScreen> {
         shadowColor: Colors.black87,
         scrolledUnderElevation: 7,
         elevation: 7,
-        bottom: const PreferredSize(
-          preferredSize: Size.fromHeight(0),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(0),
           child: Padding(
-            padding: EdgeInsets.only(left: 20, bottom: 12),
+            padding: const EdgeInsets.only(left: 20, bottom: 12),
             child: Align(
               alignment: Alignment.centerLeft,
-              child: Text('Settings',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 22,
-                  )),
+              child: Text('Settings', style: StyleConfig.textTitle),
             ),
           ),
         ),

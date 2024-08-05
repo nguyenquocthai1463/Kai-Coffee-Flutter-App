@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 
-class ConfigColor {
-  static Color primaryColor = const Color(0xff363CC0);
-  static Color secondary = const Color(0xFF474DCE);
-
+class StyleConfig {
   static Color black = const Color(0xff000000);
   static Color white = const Color(0xffFFFFFF);
-  static Color bgColor = const Color(0xffFFFFFF);
-
+  static Color bgColor = const Color(0xFFF6F6F6);
   static Color text = const Color(0xff081d3f);
-  static Color textBlack = const Color(0xff353535);
+  static Color textBlack = Color.fromARGB(255, 85, 84, 84);
   static Color textGrey = const Color(0x00206f82);
-  static Color grey = const Color(0xFFC4C4C4);
-  static Color colormain = const Color.fromRGBO(25, 110, 130, 1);
+  static Color grey = Color.fromARGB(255, 199, 199, 199);
+  static Color colormain = const Color(0xFF196E82);
+
+  static TextStyle textTitle = TextStyle(
+    color: black,
+    fontSize: 22,
+    fontFamily: 'Roboto',
+  );
+  static TextStyle maintext = TextStyle(
+    color: black,
+    fontSize: 14,
+    fontFamily: 'Roboto-Thin',
+  );
 }

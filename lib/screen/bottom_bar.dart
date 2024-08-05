@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kahi_coffee/screen/home_screen.dart';
 import 'package:kahi_coffee/screen/membership_screen.dart';
 import 'package:kahi_coffee/screen/store_screen.dart';
+import 'package:kahi_coffee/utils/config_color.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
@@ -26,15 +27,15 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: StyleConfig.white,
       body: Center(
         child: _widgetOptions[_selectedIndex],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
+        backgroundColor: StyleConfig.white,
         currentIndex: _selectedIndex,
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: const Color.fromRGBO(25, 110, 130, 1),
+        selectedItemColor: StyleConfig.colormain,
         showSelectedLabels: true,
         showUnselectedLabels: true,
         selectedFontSize: 10,

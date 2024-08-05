@@ -46,6 +46,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
+  sqflite: ^2.3.3+1
+  flutter_local_notifications: ^17.2.1+2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -115,5 +117,11 @@ flutter:
     - family: Roboto
       fonts:
         - asset: assets/fonts/Roboto-Medium.ttf
+    - family: Roboto-Thin
+      fonts:
+        - asset: assets/fonts/Roboto-Thin.ttf
+    - family: Roboto-Light
+      fonts:
+        - asset: assets/fonts/Roboto-Light.ttf
         
 
