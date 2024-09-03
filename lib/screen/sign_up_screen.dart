@@ -1,9 +1,12 @@
+import 'dart:convert';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:kahi_coffee/SQLite/sqlite.dart';
 import 'package:kahi_coffee/model/account.dart';
+import 'package:kahi_coffee/network/network_request.dart';
 import 'package:kahi_coffee/screen/login_screen.dart';
 import 'package:kahi_coffee/utils/config_color.dart';
+import 'package:http/http.dart' as http;
+import 'package:kahi_coffee/widgets/showdialog.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -14,7 +17,6 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   late Account account;
-  final DatabaseHelper databaseHelper = DatabaseHelper();
   final phonenumberController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
@@ -208,81 +210,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   margin: const EdgeInsets.only(top: 30),
                   child: ElevatedButton(
                     onPressed: () {
-                      if (phonenumberController.text.isNotEmpty) {
-                        if (phonenumberController.text.length > 11 &&
-                            phonenumberController.text.length < 9) {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text('Error'),
-                                content: const Text('Invalid phone number'),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        }
-                        if (phonenumberController.text !=
-                            confirmPasswordController.text) {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text('Error'),
-                                content: const Text('Password does not match'),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        }
-                        final db = DatabaseHelper();
-                        db
-                            .signup(Account(
-                          phonenumber: phonenumberController.text,
-                          password: passwordController.text,
-                        ))
-                            .whenComplete(() {
+                      if (phonenumberController.text.isEmpty) {
+                        Showdialog.showAlertDialog(
+                            context, 'Error', 'Phone number is empty');
+                      }
+                      if (phonenumberController.text.length > 11 &&
+                          phonenumberController.text.length < 9) {
+                        Showdialog.showAlertDialog(
+                            context, 'Error', 'Phone number is invalid');
+                      }
+                      if (passwordController.text !=
+                          confirmPasswordController.text) {
+                        Showdialog.showAlertDialog(
+                            context, 'Error', 'Password does not match');
+                      }
+                      NetWorkRequest.register(phonenumberController.text,
+                              confirmPasswordController.text)
+                          .then((value) {
+                        if (value.data == true) {
+                          Showdialog.showAlertDialog(
+                              context, 'Success', 'Register Success');
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => const LoginScreen(),
                             ),
                           );
-                        });
-                      } else {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text('Error'),
-                              content:
-                                  const Text('Please enter your phone number'),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text('OK'),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }
+                        } else {
+                          Showdialog.showAlertDialog(
+                              context, 'Error', 'Register Failed');
+                        }
+                      });
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: StyleConfig.colormain,
@@ -330,6 +288,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class MyAlertDialog extends StatelessWidget {
+  const MyAlertDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Success'),
+      content: const Text('Your personal information has been saved.'),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Text('OK'),
+        ),
+      ],
     );
   }
 }

@@ -177,7 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-               Padding(
+              Padding(
                 padding: EdgeInsets.only(left: 20, top: 5),
                 child: Text(
                   'Star Points',
@@ -233,8 +233,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          backgroundColor:
-                              StyleConfig.colormain,
+                          backgroundColor: StyleConfig.colormain,
                           minimumSize: const Size(90, 35),
                         ),
                         child: Text('Rewards',
@@ -366,7 +365,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-                       Align(
+                      Align(
                         alignment: Alignment.center,
                         child: Padding(
                           padding: EdgeInsets.only(top: 10),
@@ -388,8 +387,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                   side: BorderSide(
-                                      color: StyleConfig.colormain,
-                                      width: 1),
+                                      color: StyleConfig.colormain, width: 1),
                                 ),
                                 backgroundColor: Colors.white,
                                 minimumSize: const Size(45, 25),
@@ -414,7 +412,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Container(
                   height: 170,
                   width: 350,
-                  decoration:  BoxDecoration(
+                  decoration: BoxDecoration(
                     color: StyleConfig.white,
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                     boxShadow: [
@@ -444,7 +442,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-                       Align(
+                      Align(
                         alignment: Alignment.topCenter,
                         child: Padding(
                           padding: EdgeInsets.only(top: 45),
@@ -472,7 +470,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-                     Align(
+                      Align(
                         alignment: Alignment.center,
                         child: Padding(
                           padding: EdgeInsets.only(top: 10),
@@ -492,19 +490,18 @@ class _HomeScreenState extends State<HomeScreen> {
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
-                                  side:  BorderSide(
-                                      color:StyleConfig.colormain,
-                                      width: 1),
+                                  side: BorderSide(
+                                      color: StyleConfig.colormain, width: 1),
                                 ),
                                 backgroundColor: StyleConfig.white,
                                 minimumSize: const Size(45, 25),
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 5, horizontal: 15),
                               ),
-                              child:  Text('Read More',
+                              child: Text('Read More',
                                   style: TextStyle(
                                     fontSize: 13,
-                                    color:StyleConfig.colormain,
+                                    color: StyleConfig.colormain,
                                     fontFamily: 'Lato-Bold',
                                   ))),
                         ),
@@ -558,23 +555,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                   side: BorderSide(
-                                      color: StyleConfig.colormain,
-                                      width: 1),
+                                      color: StyleConfig.colormain, width: 1),
                                 ),
                                 backgroundColor: StyleConfig.white,
                                 minimumSize: const Size(45, 25),
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 5, horizontal: 15),
                               ),
-                              child:  Text('Read More',
+                              child: Text('Read More',
                                   style: TextStyle(
                                     fontSize: 13,
-                                    color:StyleConfig.colormain,
+                                    color: StyleConfig.colormain,
                                     fontFamily: 'Lato-Bold',
                                   ))),
                         ),
                       ),
-                       Align(
+                      Align(
                         alignment: Alignment.bottomRight,
                         child: Padding(
                           padding: EdgeInsets.only(right: 20, bottom: 5),
@@ -594,11 +590,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Padding(
-                padding:const EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 child: Container(
                   height: 170,
                   width: 350,
-                  decoration:  BoxDecoration(
+                  decoration: BoxDecoration(
                     color: StyleConfig.white,
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                     boxShadow: [
@@ -633,9 +629,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
-                                  side:  BorderSide(
-                                      color: StyleConfig.colormain,
-                                      width: 1),
+                                  side: BorderSide(
+                                      color: StyleConfig.colormain, width: 1),
                                 ),
                                 backgroundColor: StyleConfig.white,
                                 minimumSize: const Size(45, 25),

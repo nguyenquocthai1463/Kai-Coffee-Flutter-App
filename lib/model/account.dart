@@ -1,30 +1,36 @@
+import 'package:flutter/material.dart';
+import 'dart:convert';
+
+Account accountFromJson(String str) {
+  final jsonData = json.decode(str);
+  return Account.fromJson(jsonData);
+}
+
+String accountToJson(Account data) {
+  final dyn = data.toJson();
+  return json.encode(dyn);
+}
+
 class Account {
-  int? id;
   String phonenumber;
   String password;
 
-  Account({
-    this.id,
-    required this.phonenumber,
-    required this.password,
-  });
+  Account({required this.phonenumber, required this.password});
 
-  Map<String, dynamic> toMap() {
-    var map = <String, dynamic>{
+  factory Account.fromJson(Map<String, dynamic> json) {
+    return Account(
+      phonenumber: json['phonenumber'],
+      password: json['password'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
       'phonenumber': phonenumber,
       'password': password,
     };
-    if (id != null) {
-      map['id'] = id;
-    }
-    return map;
   }
 
-  static Account fromMap(Map<String, dynamic> map) {
-    return Account(
-      id: map['id'],
-      phonenumber: map['phonenumber'],
-      password: map['password'],
-    );
-  }
+  String get getPhonenumber => phonenumber;
+  String get getPassword => password;
 }

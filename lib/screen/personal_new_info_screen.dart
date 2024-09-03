@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kahi_coffee/SQLite/sqlite.dart';
-import 'package:kahi_coffee/model/personal.dart';
-import 'package:kahi_coffee/screen/login_screen.dart';
+import 'package:kahi_coffee/network/network_request.dart';
+import 'package:kahi_coffee/providers/account_provider.dart';
+import 'package:kahi_coffee/screen/home_screen.dart';
 import 'package:kahi_coffee/utils/config_color.dart';
+import 'package:kahi_coffee/widgets/showdialog.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
 class PersonalNewInfoScreen extends StatefulWidget {
@@ -14,13 +16,13 @@ class PersonalNewInfoScreen extends StatefulWidget {
 }
 
 class _PersonalNewInfoScreenState extends State<PersonalNewInfoScreen> {
-  final DatabaseHelper db = DatabaseHelper();
-  DateTime date = DateTime(2003, 06, 14);
+  DateTime date = DateTime.utc(2003, 06, 14);
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
-  final TextEditingController _genderController = TextEditingController();
+  int id_account = 0;
+  String? selectedGender;
 
   @override
   Widget build(BuildContext context) {
@@ -166,6 +168,7 @@ class _PersonalNewInfoScreenState extends State<PersonalNewInfoScreen> {
                       fontSize: 12,
                     ),
                   ),
+                  value: selectedGender,
                   items: <String>['Male', 'Female'].map((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -175,7 +178,11 @@ class _PersonalNewInfoScreenState extends State<PersonalNewInfoScreen> {
                       ),
                     );
                   }).toList(),
-                  onChanged: (String? value) {},
+                  onChanged: (String? value) {
+                    setState(() {
+                      selectedGender = value;
+                    });
+                  },
                 ),
               ),
               const SizedBox(height: 10),
@@ -184,31 +191,28 @@ class _PersonalNewInfoScreenState extends State<PersonalNewInfoScreen> {
                 margin: const EdgeInsets.only(top: 15),
                 child: ElevatedButton(
                   onPressed: () {
-                    db.insertPersonal(
-                      Personal(
-                          firstname: _firstNameController.text,
-                          lastname: _lastNameController.text,
-                          birthdate: '${date.day}/${date.month}/${date.year}',
-                          address: _addressController.text,
-                          city: _cityController.text,
-                          gender: true),
-                    );
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text('Success'),
-                          content: const Text(
-                              'Your personal information has been saved.'),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text('OK'),
+                    NetWorkRequest.createPersonalInfo(
+                            Provider.of<AccountProvider>(context, listen: false)
+                                .getId,
+                            _firstNameController.text,
+                            _lastNameController.text,
+                            date,
+                            _addressController.text,
+                            _cityController.text,
+                            selectedGender!)
+                        .then(
+                      (value) {
+                        if (value.data == true) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const HomeScreen(),
                             ),
-                          ],
-                        );
+                          );
+                        } else {
+                          Showdialog.showAlertDialog(context, 'Error',
+                              'Save personal information failed');
+                        }
                       },
                     );
                   },
@@ -229,9 +233,6 @@ class _PersonalNewInfoScreenState extends State<PersonalNewInfoScreen> {
                   ),
                 ),
               ),
-              Text(
-                context.watch<IdProvider>().di.toString(),
-              )
             ],
           ),
         ),

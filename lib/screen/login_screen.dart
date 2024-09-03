@@ -1,12 +1,15 @@
-// import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
+import 'dart:math';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:kahi_coffee/SQLite/sqlite.dart';
 import 'package:kahi_coffee/model/account.dart';
+import 'package:kahi_coffee/network/network_request.dart';
+import 'package:kahi_coffee/providers/account_provider.dart';
 import 'package:kahi_coffee/screen/home_screen.dart';
 import 'package:kahi_coffee/screen/personal_new_info_screen.dart';
 import 'package:kahi_coffee/screen/sign_up_screen.dart';
 import 'package:kahi_coffee/utils/config_color.dart';
+import 'package:kahi_coffee/widgets/showdialog.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -19,92 +22,15 @@ class _LoginScreenState extends State<LoginScreen> {
   final phonenumber = TextEditingController();
   final password = TextEditingController();
   final formkey = GlobalKey<FormState>();
-  final db = DatabaseHelper();
   String checkPersonalInfo = '';
-  int id = 1;
-  late DatabaseHelper handler;
   late Future<List<Account>> accounts;
   List<Map<String, dynamic>> list = [];
+  bool dataCheck = false;
+  int id = 0;
 
   @override
   void initState() {
     super.initState();
-    handler = db;
-  }
-
-  getIdAccount() async {
-    var response = await db.getIdAccount(phonenumber.text);
-    if (response != null) {
-      checkPersonalInfo = response.id.toString();
-      context.read<IdProvider>().setId(id);
-    }
-  }
-
-  getPersonal() async {
-    var response = await db.getPersonal(context.read<IdProvider>().di);
-    if (response != null) {
-      checkPersonalInfo = response.firstname;
-    }
-  }
-
-  login() async {
-    var response = await db
-        .login(Account(phonenumber: phonenumber.text, password: password.text));
-    if (response == true) {
-      if (!mounted) return;
-      if (checkPersonalInfo != '') {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => const PersonalNewInfoScreen(),
-        //   ),
-        // );
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: const Text('Error'),
-              content: Text(checkPersonalInfo),
-              contentPadding: const EdgeInsets.all(20),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Close'),
-                ),
-              ],
-            );
-          },
-        );
-      } else {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const HomeScreen(),
-          ),
-        );
-      }
-    } else {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Error'),
-            content: const Text('The phone number or password is incorrect!'),
-            contentPadding: const EdgeInsets.all(20),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Close'),
-              ),
-            ],
-          );
-        },
-      );
-    }
   }
 
   @override
@@ -302,70 +228,55 @@ class _LoginScreenState extends State<LoginScreen> {
                               phonenumber.text.length <= 11 &&
                               int.tryParse(phonenumber.text) != null) {
                             if (password.text.length >= 6) {
-                              getIdAccount();
-                              login();
+                              NetWorkRequest.login(
+                                      phonenumber.text, password.text)
+                                  .then((value) {
+                                if (value.data == true) {
+                                  NetWorkRequest.getIdAccount(phonenumber.text)
+                                      .then((value) {
+                                    Provider.of<AccountProvider>(context,
+                                            listen: false)
+                                        .changeId(value.data);
+                                    NetWorkRequest.checkPersonal(value.data)
+                                        .then((value) {
+                                      if (value.data == false) {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const PersonalNewInfoScreen(),
+                                          ),
+                                        );
+                                      } else if (value.data == true) {
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const HomeScreen(),
+                                          ),
+                                        );
+                                      } else {
+                                        Showdialog.showAlertDialog(
+                                            context, 'Error', 'System error!');
+                                      }
+                                    });
+                                  });
+                                } else {
+                                  Showdialog.showAlertDialog(context, 'Error',
+                                      'Phone number or password is incorrect!');
+                                }
+                              });
                             } else {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: const Text('Error'),
-                                    content: const Text(
-                                        'The password is invalid, the password must be at least 6 characters long!'),
-                                    contentPadding: const EdgeInsets.all(20),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: const Text('Close'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
+                              Showdialog.showAlertDialog(context, 'Error',
+                                  'The password is invalid, the password must be a string and have at least 6 characters!');
                             }
                           } else {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: const Text('Error'),
-                                  content: const Text(
-                                      'The phone number is invalid, the phone number must be an integer string and have between 9 and 11 numbers!'),
-                                  contentPadding: const EdgeInsets.all(20),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: const Text('Close'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
+                            Showdialog.showAlertDialog(context, 'Error',
+                                'The phone number is invalid, the phone number must be a number and have at least 9 characters and at most 11 characters!');
                           }
                         } else {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: const Text('Error'),
-                                content: const Text(
-                                    'Please enter your phone number and password'),
-                                contentPadding: const EdgeInsets.all(20),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text('Ok'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
+                          Showdialog.showAlertDialog(context, 'Error',
+                              'Please enter your phone number and password!');
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -392,15 +303,5 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-  }
-}
-
-class IdProvider with ChangeNotifier {
-  int _id = 0;
-  int get di => _id;
-
-  void setId(int test) {
-    _id = test;
-    notifyListeners();
   }
 }

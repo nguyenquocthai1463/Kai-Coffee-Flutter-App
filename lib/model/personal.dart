@@ -1,15 +1,15 @@
 class Personal {
   final int? id;
-  final int? id_account;
+  final String? phonenumber;
   final String firstname;
   final String lastname;
-  final String birthdate;
+  final DateTime birthdate;
   final String address;
   final String city;
-  final bool gender;
+  final String gender;
   Personal({
     this.id,
-    this.id_account,
+    this.phonenumber,
     required this.firstname,
     required this.lastname,
     required this.birthdate,
@@ -18,7 +18,7 @@ class Personal {
     required this.gender,
   });
   Map<String, dynamic> toMap() => {
-        "id_account": id_account,
+        "phonenumber": phonenumber,
         "firstname": firstname,
         "lastname": lastname,
         "birthdate": birthdate,
