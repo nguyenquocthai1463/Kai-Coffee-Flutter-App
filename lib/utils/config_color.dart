@@ -15,9 +15,11 @@ class StyleConfig {
     fontSize: 22,
     fontFamily: 'Roboto',
   );
+
   static TextStyle maintext = TextStyle(
     color: black,
     fontSize: 14,
     fontFamily: 'Roboto-Thin',
   );
+  
 }

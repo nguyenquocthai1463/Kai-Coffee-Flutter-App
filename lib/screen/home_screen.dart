@@ -21,120 +21,136 @@ class _HomeScreenState extends State<HomeScreen> {
             return <Widget>[
               SliverAppBar(
                 floating: true,
+                forceElevated: innerBoxIsScrolled,
                 pinned: true,
+                snap: false,
                 toolbarHeight: 100,
                 backgroundColor: StyleConfig.white,
                 shadowColor: StyleConfig.black,
-                scrolledUnderElevation: 7,
-                elevation: 7,
-                title: Stack(children: [
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Text(
-                            'Good Evening,',
-                            style: TextStyle(
-                              fontSize: 25,
-                              color: StyleConfig.black,
-                              fontFamily: 'Lato-Bold',
+                automaticallyImplyLeading: false,
+                expandedHeight: 150,
+                title: Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Column(
+                        children: [
+                          Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Text(
+                              'Good Evening,',
+                              style: TextStyle(
+                                fontSize: 25,
+                                color: StyleConfig.black,
+                                fontFamily: 'Lato-Bold',
+                              ),
                             ),
                           ),
+                          Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Text(
+                              'Nguyen Quoc Thai',
+                              style: TextStyle(
+                                fontSize: 25,
+                                color: StyleConfig.black,
+                                fontFamily: 'Lato-Bold',
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Image(
+                        image: AssetImage('assets/images/sun.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
+                ),
+                bottom: PreferredSize(
+                  preferredSize: const Size.fromHeight(42),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ProfileScreen()),
+                                  );
+                                },
+                                child: Row(
+                                  children: [
+                                    const Image(
+                                      image:
+                                          AssetImage('assets/images/card.png'),
+                                      width: 25,
+                                      height: 25,
+                                    ),
+                                    const SizedBox(
+                                      width: 3,
+                                    ),
+                                    Text(
+                                      'Profile',
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: StyleConfig.black),
+                                    )
+                                  ],
+                                )),
+                            TextButton(
+                                onPressed: () {},
+                                child: Row(
+                                  children: [
+                                    const Image(
+                                      image:
+                                          AssetImage('assets/images/email.png'),
+                                      width: 25,
+                                      height: 25,
+                                    ),
+                                    const SizedBox(
+                                      width: 3,
+                                    ),
+                                    Text(
+                                      'Inbox',
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: StyleConfig.black),
+                                    )
+                                  ],
+                                )),
+                          ],
                         ),
-                        Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Text(
-                            'Nguyen Quoc Thai',
-                            style: TextStyle(
-                              fontSize: 25,
-                              color: StyleConfig.black,
-                              fontFamily: 'Lato-Bold',
+                        Padding(
+                          padding: const EdgeInsets.only(right: 2),
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const SettingScreen()),
+                              );
+                            },
+                            child: const Image(
+                              image: AssetImage('assets/images/setting.png'),
+                              width: 25,
+                              height: 25,
                             ),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Image(
-                      image: AssetImage('assets/images/sun.png'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ]),
-                bottom: PreferredSize(
-                  preferredSize: const Size.fromHeight(48),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ProfileScreen()),
-                                );
-                              },
-                              child: Row(
-                                children: [
-                                  Image(
-                                    image: AssetImage('assets/images/card.png'),
-                                    width: 25,
-                                    height: 25,
-                                  ),
-                                  SizedBox(
-                                    width: 3,
-                                  ),
-                                  Text(
-                                    'Profile',
-                                    style: TextStyle(
-                                        fontSize: 15, color: StyleConfig.black),
-                                  )
-                                ],
-                              )),
-                          TextButton(
-                              onPressed: () {},
-                              child: Row(
-                                children: [
-                                  Image(
-                                    image:
-                                        AssetImage('assets/images/email.png'),
-                                    width: 25,
-                                    height: 25,
-                                  ),
-                                  SizedBox(
-                                    width: 3,
-                                  ),
-                                  Text(
-                                    'Inbox',
-                                    style: TextStyle(
-                                        fontSize: 15, color: StyleConfig.black),
-                                  )
-                                ],
-                              )),
-                        ],
-                      ),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const SettingScreen()),
-                            );
-                          },
-                          child: const Image(
-                              image: AssetImage('assets/images/setting.png'),
-                              width: 25,
-                              height: 25)),
-                    ],
                   ),
                 ),
               ),
@@ -148,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 15),
+                        padding: const EdgeInsets.only(top: 10, left: 15),
                         child: Text(
                           '154.8',
                           style: TextStyle(
@@ -178,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               Padding(
-                padding: EdgeInsets.only(left: 20, top: 5),
+                padding: const EdgeInsets.only(left: 20, top: 5),
                 child: Text(
                   'Star Points',
                   style: TextStyle(
@@ -255,13 +271,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 350,
                     decoration: BoxDecoration(
                       color: StyleConfig.white,
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      borderRadius: const BorderRadius.all(Radius.circular(5)),
                       boxShadow: [
                         BoxShadow(
                           color: StyleConfig.grey,
                           spreadRadius: 0.1,
                           blurRadius: 3,
-                          offset: Offset(0, 1),
+                          offset: const Offset(0, 1),
                         ),
                       ],
                     ),
@@ -279,14 +295,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontSize: 26,
                                   color: StyleConfig.colormain,
                                 )),
-                            TextSpan(
+                            const TextSpan(
                                 text: 'EED BACK \n',
                                 style: TextStyle(
                                   fontSize: 26,
                                   fontWeight: FontWeight.bold,
                                   color: Color.fromARGB(225, 230, 230, 230),
                                 )),
-                            TextSpan(
+                            const TextSpan(
                                 text:
                                     'We are looking forward to receving feedback',
                                 style: TextStyle(
@@ -295,8 +311,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ))
                           ]),
                         ),
-                        Image.asset('assets/images/reward.jpg',
-                            fit: BoxFit.fitHeight),
+                        Image.asset(
+                          'assets/images/reward.jpg',
+                          fit: BoxFit.contain,
+                          width: 290,
+                        ),
                       ],
                     ),
                   ),
@@ -308,39 +327,33 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 170,
                   width: 350,
                   decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image:
+                          const AssetImage('assets/images/background_36st.jpg'),
+                      fit: BoxFit.cover,
+                      colorFilter: ColorFilter.mode(
+                        // ignore: deprecated_member_use
+                        Colors.black.withOpacity(0.5),
+                        BlendMode.srcATop,
+                      ),
+                    ),
                     color: StyleConfig.white,
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
                     boxShadow: [
                       BoxShadow(
                         color: StyleConfig.grey,
                         spreadRadius: 0.1,
                         blurRadius: 3,
-                        offset: Offset(0, 1),
+                        offset: const Offset(0, 1),
                       ),
                     ],
                   ),
                   child: Stack(
                     children: [
-                      ColorFiltered(
-                        colorFilter: ColorFilter.mode(
-                          Colors.black.withOpacity(
-                              0.5), // Màu và độ mờ bạn muốn áp dụng
-                          BlendMode.srcATop,
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(5.0),
-                          child: Image.asset(
-                            'assets/images/background_36st.jpg',
-                            fit: BoxFit.fitWidth,
-                            width: 350,
-                            height: 170,
-                          ),
-                        ),
-                      ),
                       Align(
                         alignment: Alignment.topCenter,
                         child: Padding(
-                          padding: EdgeInsets.only(top: 45),
+                          padding: const EdgeInsets.only(top: 45),
                           child: Text(
                             'NEW STORE',
                             style: TextStyle(
@@ -355,20 +368,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       Align(
                         alignment: Alignment.topCenter,
                         child: Padding(
-                          padding: EdgeInsets.only(top: 63),
-                          child: Divider(
-                            color: StyleConfig.white, // Màu của đường kẻ
-                            height: 20,
-                            thickness: 1,
-                            indent: 150,
-                            endIndent: 150,
+                          padding: const EdgeInsets.only(top: 73),
+                          child: Container(
+                            width: 30,
+                            height: 1,
+                            color: StyleConfig.white,
                           ),
                         ),
                       ),
                       Align(
                         alignment: Alignment.center,
                         child: Padding(
-                          padding: EdgeInsets.only(top: 10),
+                          padding: const EdgeInsets.only(top: 10),
                           child:
                               Text('117 ĐƯỜNG SỐ 7, BÌNH TRỊ ĐÔNG B, BÌNH TÂN',
                                   style: TextStyle(
@@ -380,26 +391,29 @@ class _HomeScreenState extends State<HomeScreen> {
                       Align(
                         alignment: Alignment.bottomLeft,
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 20, bottom: 5),
+                          padding: const EdgeInsets.only(left: 15, bottom: 15),
                           child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                  side: BorderSide(
-                                      color: StyleConfig.colormain, width: 1),
-                                ),
-                                backgroundColor: Colors.white,
-                                minimumSize: const Size(45, 25),
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 4, horizontal: 15),
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                side: BorderSide(
+                                    color: StyleConfig.colormain, width: 1),
                               ),
-                              child: Text('Read More',
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    color: StyleConfig.colormain,
-                                    fontFamily: 'Lato-Bold',
-                                  ))),
+                              backgroundColor: Colors.white,
+                              minimumSize: const Size(45, 25),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 13, horizontal: 15),
+                            ),
+                            child: Text(
+                              'Read More',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: StyleConfig.colormain,
+                                fontFamily: 'Lato-Bold',
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -414,13 +428,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 350,
                   decoration: BoxDecoration(
                     color: StyleConfig.white,
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
                     boxShadow: [
                       BoxShadow(
                         color: StyleConfig.grey,
                         spreadRadius: 0.1,
                         blurRadius: 3,
-                        offset: Offset(0, 1),
+                        offset: const Offset(0, 1),
                       ),
                     ],
                   ),
@@ -428,6 +442,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       ColorFiltered(
                         colorFilter: ColorFilter.mode(
+                          // ignore: deprecated_member_use
                           Colors.black.withOpacity(
                               0.5), // Màu và độ mờ bạn muốn áp dụng
                           BlendMode.srcATop,
@@ -445,7 +460,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Align(
                         alignment: Alignment.topCenter,
                         child: Padding(
-                          padding: EdgeInsets.only(top: 45),
+                          padding: const EdgeInsets.only(top: 45),
                           child: Text(
                             'NEW STORE',
                             style: TextStyle(
@@ -460,7 +475,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Align(
                         alignment: Alignment.topCenter,
                         child: Padding(
-                          padding: EdgeInsets.only(top: 63),
+                          padding: const EdgeInsets.only(top: 63),
                           child: Divider(
                             color: StyleConfig.white, // Màu của đường kẻ
                             height: 20,
@@ -473,7 +488,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Align(
                         alignment: Alignment.center,
                         child: Padding(
-                          padding: EdgeInsets.only(top: 10),
+                          padding: const EdgeInsets.only(top: 10),
                           child: Text('18 ĐƯỜNG SỐ 36, TAN QUY, QUẬN 7',
                               style: TextStyle(
                                 fontSize: 12,
@@ -517,13 +532,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 350,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    borderRadius: const BorderRadius.all( Radius.circular(5)),
                     boxShadow: [
                       BoxShadow(
                         color: StyleConfig.grey,
                         spreadRadius: 0.1,
                         blurRadius: 3,
-                        offset: Offset(0, 1),
+                        offset: const Offset(0, 1),
                       ),
                     ],
                   ),
@@ -531,6 +546,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       ColorFiltered(
                         colorFilter: ColorFilter.mode(
+                          // ignore: deprecated_member_use
                           Colors.black.withOpacity(
                               0.1), // Màu và độ mờ bạn muốn áp dụng
                           BlendMode.srcATop,

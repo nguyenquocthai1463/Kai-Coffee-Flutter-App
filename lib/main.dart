@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kahi_coffee/providers/account_provider.dart';
+import 'package:kahi_coffee/screen/home_screen.dart';
 import 'package:kahi_coffee/screen/login_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       color: Colors.white,
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: HomeScreen(),
     );
   }
 }

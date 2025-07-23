@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Showdialog {
-  static void showAlertDialog(
-      BuildContext context, String title, String message) {
+  static void showAlertDialog(BuildContext context, String title, String message) {
     showDialog(
       context: context,
       builder: (context) {
@@ -23,3 +22,4 @@ class Showdialog {
     );
   }
 }
+
